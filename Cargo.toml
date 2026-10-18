@@ -1,0 +1,44 @@
+[package]
+name = "signal-net"
+version = "0.1.0"
+edition = "2024"
+description = "Command-line port of the Signal Network Lab v3.1 (signal network + two-stage engine)"
+publish = false
+
+[dependencies]
+anyhow = "1"
+base64 = "0.23"
+clap = { version = "4.6", features = ["derive"] }
+ctrlc = "3.5"
+serde_json = { version = "1", features = ["float_roundtrip"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[lints.clippy]
+unwrap_used = "warn"
+expect_used = "warn"
+pedantic = { level = "warn", priority = -1 }
+# This is a numerical simulation over fixed-size arrays: neuron ids, link ids and payloads are converted
+# between i32/u32/usize/f64 constantly, exactly as the original JavaScript does. Every array index is
+# derived from the network constants or validated when a model file is loaded.
+cast_possible_truncation = "allow"
+cast_sign_loss = "allow"
+cast_precision_loss = "allow"
+cast_possible_wrap = "allow"
+cast_lossless = "allow"
+# Short names (w, tgt, cons, ...) mirror the original source so the port can be checked line by line.
+many_single_char_names = "allow"
+similar_names = "allow"
+too_many_lines = "allow"
+struct_excessive_bools = "allow"
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true
