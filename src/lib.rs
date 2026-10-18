@@ -25,6 +25,7 @@
 
 mod corpus;
 mod lab;
+mod model;
 mod pairs;
 mod rng;
 mod signal;
@@ -36,6 +37,7 @@ pub use lab::{
     Checksums, DEFAULT_SEED, Engine, Event, EventKind, Focus, Lab, MAXS, Mode, Settings, Source,
     TrainMode,
 };
+pub use model::{load_model, save_model};
 pub use pairs::{MAX_LEN, Pair, format_pairs, parse_pairs, truncate_utf16};
 pub use rng::{Rng, hash, hs};
 pub use two_stage::{C2, context_neurons};
